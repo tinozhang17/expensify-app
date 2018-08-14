@@ -1,0 +1,20 @@
+// When you want to pass down props through a long chain of component, but only the final component will utilize the props and not the intermediate ones, use Redux. Redux allows of re-usability of components because it centralizes state storage. Redux is a state container. Therefore, the components are not communicating between each other, and are communicating with Redux instead. Redux and component states can be used in parallel, depending on your need. Component state is good for when components need to communicate between each other using props.
+
+// Reducers
+// 1. Reducers are pure functions (aka. the output is only determined by the input passed to the function, and the function doesn't interact with anything that is outside of its scope)
+// 2. Never change state or action that are passed into it
+
+// In order to make object spread operator works, you have to configure .babelrc to include the plugin "transform-object-rest-spread". If you want to override a property during object spreading, you have to define the new value of the property after the spread operator and not before.
+
+// To connect Redux with React, use the react-redux module.
+// You will be given two functions, one is called Provider, which is a component, and the other is a function called connect(). You will wrap your application within the <Provider> component, and pass your store to the <Provider> as an attribute called store. To create the store, you have to use the createStore() function given by the redux module, and in the store, you will set up your reducers. If you have multiple reducers, you can combine them using the combineReducers() function provided by the redux module. The reducers decides how to act based on the action, which is passed to it as an argument. The action argument is an object, which has to contain a property called "type" in order for the reducer to identify the type of action so the reducer can choose to act accordingly. The action will usually contain other properties, which can be used by the reducer to perform meaningful task. Actions can be generated through an Action Generator, which are functions that return the action object using user inputs.
+
+// The connect(callback) function provided by the react-redux module takes in a callback, which takes in the state as the argument, and return an object which has properties representing the state properties that you want to pass to the component. The component that is wired up by the connect() function will then be able to access the state properties using the props.<state_property_name>. Such component is also given a dispatch() function that it can use through props.dispatch to change the state.
+
+// If you just use connect() by itself without a callback element, then the component that connect() is called upon will only have access to the dispatch() function and not any state-related data
+
+// to run jest on watch mode through the command line, do ">>> npm run test -- --watch". The first set of "--" means everything after are arguments provided to whatever the test script is. If you don't specify the first set of "--", then "--watch" would be passed as argument to npm, which it wouldn't understand.
+
+// to test components, use react-test-renderer, which allows the components to be rendered as js and we can assert what actually got rendered. Shallow rendering in react-test-renderer only renders the particular component, but you also have an option to do full DOM rendering. To do shallow rendering, "import ReactShallowRenderer from 'react-test-renderer/shallow'"
+
+// sometimes if we want to test components that has parts that are variable, such as if the component relies on moment(), then we will have to mock the moment() function so that the variable value always stays constant when we test. We store the mocks in the __mock__ directory in the "tests" directory. And we must ensure to import the module inside a mock script using the require.requireActual(<module name>) if the mock file has the same name as the module name.
