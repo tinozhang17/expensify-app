@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --config=jest.config.json",
     "serve": "live-server public/",
-    "build": "webpack",
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server"
   },
   "author": "Tino Zhang",
@@ -44,6 +45,7 @@
     "enzyme-adapter-react-16": "^1.2.0",
     "enzyme-to-json": "^3.3.4",
     "jest": "^23.5.0",
+    "mini-css-extract-plugin": "^0.4.1",
     "raf": "^3.4.0",
     "react-test-renderer": "^16.4.2"
   }
