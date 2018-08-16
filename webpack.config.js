@@ -9,7 +9,7 @@ module.exports = (env) => {
     return {
         entry: "./src/app.js",
         output: {
-            path: Path.join(__dirname, '/public'),
+            path: Path.join(__dirname, 'public', 'dist'),
             filename: 'bundle.js'
         },
         watch: false,
@@ -50,7 +50,8 @@ module.exports = (env) => {
         devtool: isProduction ? 'source-map' : 'inline-source-map',
         devServer: {
             contentBase: Path.join(__dirname, '/public'),
-            historyApiFallback: true // this tells devServer that we are going to be handlng routing through client-side code, and that it should return index.html for all 404 code.
+            historyApiFallback: true, // this tells devServer that we are going to be handlng routing through client-side code, and that it should return index.html for all 404 code.
+            publicPath: '/dist/' // this tells the devServer to fetch the virtual assest in the /dist directory instead of in the root of the folder
         }
     }
 };
