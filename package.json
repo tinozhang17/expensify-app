@@ -26,6 +26,7 @@
     "moment": "^2.22.2",
     "node-sass": "^4.9.2",
     "normalize.css": "^8.0.0",
+    "numeraljs": "^1.5.6",
     "react": "^16.4.1",
     "react-dates": "^17.1.1",
     "react-dom": "^16.4.1",
