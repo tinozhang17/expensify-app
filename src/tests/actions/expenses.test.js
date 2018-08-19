@@ -1,11 +1,17 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startAddExpense, addExpense, editExpense, removeExpense } from "../../actions/expenses";
+import { startAddExpense, addExpense, editExpense, removeExpense, startSetExpenses, setExpenses } from "../../actions/expenses";
 import moment from 'moment';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
+
+beforeEach((done) => {
+    const expensesData = {};
+    expenses.forEach(({ id, description, note, amount, createdAt }) => expensesData[id] = { description, note, amount, createdAt});
+    database.ref('expenses').set(expensesData).then(() => done()); // specifying done() here allows for the beforeEach to be completely run and data inputted into the database, before the test cases begin processing.
+});
 
 test('should set up remove expense action object', () => {
     expect(removeExpense('123abc')).toEqual({
@@ -87,17 +93,21 @@ test('should add expense with defaults to database and store', (done) => {
     });
 });
 
-// test('should set up add expense object with default values', () => {
-//     const createdAt = moment().valueOf();
-//     const actionObj = addExpense({ createdAt });
-//     expect(actionObj).toEqual({
-//         type: 'ADD_EXPENSE',
-//         expense: {
-//             id: actionObj.expense.id,
-//             description: '',
-//             note: '',
-//             amount: '',
-//             createdAt
-//         }
-//     })
-// });
+test('should set up set expenses action object with data', () => {
+    expect(setExpenses(expenses)).toEqual({
+        type: 'SET_EXPENSES',
+        expenses
+    });
+});
+
+test('should set expenses in the store (aka fetch all expenses from database and set the store', (done) => {
+    const store = createMockStore({});
+    store.dispatch(startSetExpenses()).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'SET_EXPENSES',
+            expenses
+        });
+        done();
+    });
+});
