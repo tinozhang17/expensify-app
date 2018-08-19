@@ -18,3 +18,5 @@
 // to test components, use react-test-renderer, which allows the components to be rendered as js and we can assert what actually got rendered. Shallow rendering in react-test-renderer only renders the particular component, but you also have an option to do full DOM rendering. To do shallow rendering, "import ReactShallowRenderer from 'react-test-renderer/shallow'"
 
 // sometimes if we want to test components that has parts that are variable, such as if the component relies on moment(), then we will have to mock the moment() function so that the variable value always stays constant when we test. We store the mocks in the __mock__ directory in the "tests" directory. And we must ensure to import the module inside a mock script using the require.requireActual(<module name>) if the mock file has the same name as the module name.
+
+// In order for the action generator to dispatch a function and for the reducer to be able to execute such function, we need to install the redux-thunk module and configure it in the store configuration (see configureStore.js)

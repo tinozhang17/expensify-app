@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpensesSummary component should match snapshot 1`] = `
+<div>
+  <p>
+    Viewing 
+    3
+     expense
+    s
+     totalling 
+    $7.40
+  </p>
+</div>
+`;
