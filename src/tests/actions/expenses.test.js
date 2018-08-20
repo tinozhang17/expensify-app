@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startAddExpense, addExpense, editExpense, removeExpense, startSetExpenses, setExpenses } from "../../actions/expenses";
+import { startAddExpense, addExpense, editExpense, startEditExpense, removeExpense, startRemoveExpense, startSetExpenses, setExpenses } from "../../actions/expenses";
 import moment from 'moment';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
@@ -20,6 +20,24 @@ test('should set up remove expense action object', () => {
     });
 });
 
+test('should remove from database and update state correctly with startRemoveExpense', (done) => {
+    const id = expenses[1].id;
+    const store = createMockStore({
+        expenses
+    });
+    store.dispatch(startRemoveExpense(id)).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'REMOVE_EXPENSE',
+            expenseId: id
+        });
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBeFalsy();
+        done();
+    });
+});
+
 test('should set up edit expense action object', () => {
     const updateObj = {
         description: 'food',
@@ -34,6 +52,31 @@ test('should set up edit expense action object', () => {
         updateObj
         }
     );
+});
+
+test('should edit the expense in database and dispatch editExpense action with startEditExpense', (done) => {
+    const id = expenses[1].id;
+    const updateObj = {
+        description: 'updated description',
+        amount: 1320,
+        note: 'updated note',
+        createdAt: moment(0).subtract(124, 'day').valueOf()
+    };
+    const store = createMockStore({
+        expenses
+    });
+    store.dispatch(startEditExpense(id, updateObj)).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'EDIT_EXPENSE',
+            expenseId: id,
+            updateObj
+        });
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val()).toEqual(updateObj);
+        done();
+    });
 });
 
 test('should set up add expense action object', () => {
