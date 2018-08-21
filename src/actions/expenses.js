@@ -8,7 +8,8 @@ export const addExpense = (expense) => ({
 });
 
 export const startAddExpense = (expenseData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const {
             description = '',
             note = '',
@@ -17,7 +18,7 @@ export const startAddExpense = (expenseData = {}) => {
         } = expenseData;
         const expense = { description, note, amount, createdAt };
         // below we are returning another promise, so that it can be further chained later, if needed.
-        return database.ref('expenses')
+        return database.ref(`users/${uid}/expenses`)
             .push(expense)
             .then((snapshot) => {
              dispatch(addExpense({
@@ -34,8 +35,9 @@ export const removeExpense = (id) => ({
 });
 
 export const startRemoveExpense = (id) => {
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).remove().then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
             dispatch(removeExpense(id));
         });
     }
@@ -48,8 +50,9 @@ export const editExpense = (id, updateObj) => ({
 });
 
 export const startEditExpense = (id, updateObj) => {
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).set(updateObj).then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/expenses/${id}`).set(updateObj).then(() => {
             dispatch(editExpense(id, updateObj));
         });
     }
@@ -62,9 +65,10 @@ export const setExpenses = (expenses) => ({
 });
 
 export const startSetExpenses = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const expenses = [];
-        return database.ref('expenses').once('value').then((snapshot) => {
+        return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 expenses.push({
                     id: childSnapshot.key,
