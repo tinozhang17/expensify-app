@@ -23,16 +23,14 @@ exports[`should render Header correctly 1`] = `
   <NavLink
     activeClassName="is-active"
     aria-current="page"
-    to="/edit"
-  >
-    Edit Expense
-  </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    aria-current="page"
     to="/help"
   >
     Help
   </NavLink>
+  <button
+    onClick={[MockFunction]}
+  >
+    Log Out
+  </button>
 </header>
 `;
