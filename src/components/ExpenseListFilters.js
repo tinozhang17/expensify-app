@@ -34,30 +34,38 @@ export class ExpenseListFilters extends React.Component {
 
     render() {
         return (
-            <div>
-                <input type="text" value={this.props.filters.text} onChange={this.onTextChange} />
-                <select onChange={this.onSortChange}>
-                    {['Amount', 'Date'].map((item) => {
-                        return (
-                            <option
-                                value={item.toLowerCase()}
-                                key={item.toLowerCase()}
-                                selected={item.toLowerCase()===this.props.filters.sortBy}>{item}</option>
-                        );
-                    })}
-                </select>
-                <DateRangePicker
-                    startDate={this.props.filters.startDate}
-                    startDateId={'filters__start-date-id'}
-                    endDate={this.props.filters.endDate}
-                    endDateId={'filters__end-date-id'}
-                    onDatesChange={this.onDatesChange}
-                    focusedInput={this.state.calendarFocused}
-                    onFocusChange={this.onFocusChange}
-                    showClearDates={true}
-                    numberOfMonths={1}
-                    isOutsideRange={() => false}
-                />
+            <div className="content-container">
+                <div className="input-group">
+                    <div className="input-group__item">
+                        <input placeholder="Search expenses" className="text-input" type="text" value={this.props.filters.text} onChange={this.onTextChange} />
+                    </div>
+                    <div className="input-group__item">
+                        <select className="select" placeholder="Search expenses" onChange={this.onSortChange}>
+                            {['Amount', 'Date'].map((item) => {
+                                return (
+                                    <option
+                                        value={item.toLowerCase()}
+                                        key={item.toLowerCase()}
+                                        selected={item.toLowerCase()===this.props.filters.sortBy}>{item}</option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="input-group__item">
+                        <DateRangePicker
+                            startDate={this.props.filters.startDate}
+                            startDateId={'filters__start-date-id'}
+                            endDate={this.props.filters.endDate}
+                            endDateId={'filters__end-date-id'}
+                            onDatesChange={this.onDatesChange}
+                            focusedInput={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange}
+                            showClearDates={true}
+                            numberOfMonths={1}
+                            isOutsideRange={() => false}
+                        />
+                    </div>
+                </div>
             </div>
         );
     };

@@ -1,32 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should match snapshot 1`] = `
-<div>
-  <form>
-    <label
-      htmlFor="login__username"
+<div
+  className="box-layout"
+>
+  <div
+    className="box-layout__box"
+  >
+    <h1
+      className="box-layout__title"
     >
-      Username: 
-    </label>
-    <input
-      id="login__username"
-      type="text"
-    />
-    <label
-      htmlFor="login__password"
-    >
-      Password: 
-    </label>
-    <input
-      id="login__password"
-      type="text"
-    />
+      Expensify
+    </h1>
+    <p>
+      It's time to get your expenses under control.
+    </p>
     <button
+      className="button"
       onClick={[MockFunction]}
       type="button"
     >
-      Log In
+      Login with Google
     </button>
-  </form>
+  </div>
 </div>
 `;

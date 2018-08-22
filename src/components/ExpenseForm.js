@@ -62,21 +62,21 @@ export default class ExpenseForm extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
-                    <input type="text" placeholder="Description" autoFocus value={this.state.description} onChange={this.onDescriptionChange}/>
-                    <input type="text" placeholder="Amount" value={this.state.amount} onChange={this.onAmountChange} />
-                    <SingleDatePicker date={this.state.createdAt}
-                                      onDateChange={this.onDateChange}
-                                      focused={this.state.calendarFocused}
-                                      onFocusChange={this.onFocusChange}
-                                      numberOfMonths={1}
-                                      isOutsideRange={() => false}/>
-                    <textarea placeholder={"Add a note for your expense (optional)"} onChange={this.onNoteChange} />
-                    <button>{this.props.expense ? 'Update Expense' : 'Add Expense'}</button>
-                </form>
-            </div>
+            <form className="form" onSubmit={this.onSubmit}>
+                {this.state.error && <p className="form__error">{this.state.error}</p>}
+                <input className="text-input" type="text" placeholder="Description" autoFocus value={this.state.description} onChange={this.onDescriptionChange}/>
+                <input className="text-input" type="text" placeholder="Amount" value={this.state.amount} onChange={this.onAmountChange} />
+                <SingleDatePicker date={this.state.createdAt}
+                                  onDateChange={this.onDateChange}
+                                  focused={this.state.calendarFocused}
+                                  onFocusChange={this.onFocusChange}
+                                  numberOfMonths={1}
+                                  isOutsideRange={() => false}/>
+                <textarea className="text-area" placeholder={"Add a note for your expense (optional)"} onChange={this.onNoteChange} />
+                <div>
+                    <button className="button">{this.props.expense ? 'Update Expense' : 'Add Expense'}</button>
+                </div>
+            </form>
         );
     }
 }

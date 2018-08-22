@@ -1,14 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExpensesSummary component should match snapshot 1`] = `
-<div>
-  <p>
-    Viewing 
-    3
-     expense
-    s
-     totalling 
-    $7.40
-  </p>
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h1
+      className="page-header__title"
+    >
+      Viewing 
+      <span>
+        3
+      </span>
+       expense
+      s
+       totalling 
+      <span>
+        $7.40
+      </span>
+    </h1>
+    <div>
+      <div
+        className="page-header__action"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/create"
+        >
+          Add Expense
+        </Link>
+      </div>
+    </div>
+  </div>
 </div>
 `;
